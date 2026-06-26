@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
-    "@actions/github": "^6.0.0",
+    "@actions/github": "^9.1.1",
     "@github-ai-actions/core": "workspace:*",
     "@github-ai-actions/github": "workspace:*",
     "@github-ai-actions/utils": "workspace:*",
