@@ -1,6 +1,6 @@
 {
   "name": "github-ai-actions",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Open-source collection of AI-powered GitHub Actions for automating software engineering tasks",
   "keywords": [

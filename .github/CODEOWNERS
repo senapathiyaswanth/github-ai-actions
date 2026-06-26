@@ -1,0 +1,23 @@
+# GitHub AI Actions CODEOWNERS
+
+# Global owners for everything not explicitly specified below
+*       @github-ai-actions/maintainers
+
+# Package specific ownership
+/packages/core/         @github-ai-actions/core-team
+/packages/github/       @github-ai-actions/github-integration-team
+/packages/utils/        @github-ai-actions/maintainers
+
+# Actions ownership
+/actions/pr-review/        @github-ai-actions/ai-features-team
+/actions/commit-message/   @github-ai-actions/ai-features-team
+/actions/readme-generator/ @github-ai-actions/ai-features-team
+/actions/release-notes/    @github-ai-actions/ai-features-team
+
+# CI/CD and Infrastructure
+/.github/workflows/     @github-ai-actions/devops-team
+/scripts/               @github-ai-actions/devops-team
+
+# Documentation
+/*.md                   @github-ai-actions/devrel-team
+/examples/              @github-ai-actions/devrel-team

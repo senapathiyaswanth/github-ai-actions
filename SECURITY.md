@@ -89,7 +89,7 @@ This repository implements:
 - **CodeQL** — automated code scanning for vulnerabilities
 - **Dependency Review** — blocks PRs introducing high-severity vulnerabilities
 - **npm audit** — weekly automated audit with issue creation on failures
-- **Secret scanning** — GitHub's built-in secret scanning is enabled
+- **Secret Scanning Guidance** — We strongly recommend enabling [GitHub Secret Scanning](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning) and [Push Protection](https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories) on any repository using these actions to prevent accidental credential leakage in PRs.
 - **Input sanitization** — user-controlled inputs are sanitized before AI prompts
 - **Token budget limits** — prevent token abuse via large inputs
 
