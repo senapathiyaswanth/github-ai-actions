@@ -23,7 +23,7 @@
     "@github-ai-actions/core": "workspace:*",
     "@github-ai-actions/github": "workspace:*",
     "@github-ai-actions/utils": "workspace:*",
-    "@octokit/rest": "^21.0.2"
+    "@octokit/rest": "^22.0.1"
   },
   "devDependencies": {
     "@github-ai-actions/tsconfig": "workspace:*",
