@@ -1,0 +1,57 @@
+# AI PR Review — Example Workflow
+#
+# Copy this file to your repository at .github/workflows/ai-review.yml
+# Configure your AI provider secret in Settings → Secrets and Variables → Actions
+
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    # Optionally limit to specific branches:
+    # branches: [main, develop]
+
+jobs:
+  ai-review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+
+    # Required permissions for posting PR comments
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: AI PR Review
+        uses: github-ai-actions/github-ai-actions/actions/pr-review@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          # ── AI Provider ───────────────────────────────────────────────────
+          # Choose one: openai | anthropic | gemini
+          ai-provider: openai
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          # ai-provider: anthropic
+          # anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # ai-provider: gemini
+          # gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+
+          # ── Review Configuration ──────────────────────────────────────────
+          # Depth: quick | detailed | thorough
+          review-level: detailed
+
+          # Skip generated/test files
+          exclude-patterns: "*.test.ts,*.spec.ts,*.snap,dist/*,coverage/*,*.lock"
+
+          # Maximum files to analyze per PR
+          max-files: 50
+
+          # Fail the workflow if quality score drops below this (0 = never fail)
+          fail-on-score: 0
+
+      # Optional: Use review outputs in subsequent steps
+      - name: Check Review Score
+        if: always()
+        run: |
+          echo "Quality Score: ${{ steps.review.outputs.quality-score }}"
+          echo "Issues Found: ${{ steps.review.outputs.issues-found }}"

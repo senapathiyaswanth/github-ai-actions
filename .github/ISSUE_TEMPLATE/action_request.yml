@@ -1,0 +1,45 @@
+name: 🤖 New Action Request
+description: Request a new AI-powered GitHub Action
+title: "action: "
+labels: ["new-action", "enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for a new AI-powered GitHub Action? Tell us about it!
+
+  - type: textarea
+    id: action-description
+    attributes:
+      label: Action description
+      description: What should this action do?
+      placeholder: "An action that uses AI to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Proposed inputs
+      description: What configuration would this action need?
+      render: yaml
+
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Proposed outputs
+      description: What would this action produce?
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use cases
+      description: Describe 2-3 specific use cases for this action
+    validations:
+      required: true
+
+  - type: textarea
+    id: example-workflow
+    attributes:
+      label: Example workflow
+      render: yaml

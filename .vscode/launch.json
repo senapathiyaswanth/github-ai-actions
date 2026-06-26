@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug: AI PR Review Action",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "program": "${workspaceFolder}/actions/pr-review/src/main.ts",
+      "runtimeArgs": ["--loader", "ts-node/esm"],
+      "env": {
+        "INPUT_GITHUB-TOKEN": "${env:GITHUB_TOKEN}",
+        "INPUT_AI-PROVIDER": "openai",
+        "INPUT_OPENAI-API-KEY": "${env:OPENAI_API_KEY}",
+        "INPUT_REVIEW-LEVEL": "detailed",
+        "GITHUB_REPOSITORY": "owner/repo",
+        "GITHUB_EVENT_NAME": "pull_request",
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug: Vitest (current file)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/vitest",
+      "runtimeArgs": ["--reporter", "verbose", "${fileBasenameNoExtension}"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug: All Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/vitest",
+      "runtimeArgs": ["--reporter", "verbose"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

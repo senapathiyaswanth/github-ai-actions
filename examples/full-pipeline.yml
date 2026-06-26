@@ -1,0 +1,100 @@
+# Full AI Pipeline — Example Workflow
+#
+# A complete example combining all 4 AI actions in a single pipeline.
+# Demonstrates how the actions work together in a real project.
+
+name: Full AI Pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  # ── Job 1: AI PR Review (runs on every PR) ────────────────────────────────
+  ai-pr-review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: AI PR Review
+        id: review
+        uses: github-ai-actions/github-ai-actions/actions/pr-review@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: openai
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          review-level: detailed
+          exclude-patterns: "*.test.ts,*.snap,dist/*"
+          fail-on-score: 60
+
+      - name: Add Review Summary
+        if: always()
+        run: |
+          echo "## Review Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Score:** ${{ steps.review.outputs.quality-score }}/100" >> $GITHUB_STEP_SUMMARY
+
+  # ── Job 2: Release Notes (runs on tag push) ───────────────────────────────
+  ai-release-notes:
+    name: Generate Release Notes
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get previous tag
+        id: prev
+        run: |
+          PREV=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          echo "tag=$PREV" >> $GITHUB_OUTPUT
+
+      - name: Generate Release Notes
+        id: notes
+        uses: github-ai-actions/github-ai-actions/actions/release-notes@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: anthropic
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          from-tag: ${{ steps.prev.outputs.tag }}
+          to-tag: ${{ github.ref_name }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: "Release ${{ github.ref_name }}"
+          body: ${{ steps.notes.outputs.release-notes }}
+          draft: false
+
+  # ── Job 3: README Update (manual trigger) ────────────────────────────────
+  ai-readme:
+    name: Update README
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Update README
+        uses: github-ai-actions/github-ai-actions/actions/readme-generator@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: gemini
+          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+          create-pr: "true"

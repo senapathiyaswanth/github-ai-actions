@@ -1,0 +1,95 @@
+name: "AI Release Notes Generator"
+description: >
+  Automatically generates professional release notes from commit history using AI.
+  Supports Conventional Commits, groups by type, and suggests semantic version bumps.
+author: "GitHub AI Actions"
+
+branding:
+  icon: "tag"
+  color: "purple"
+
+inputs:
+  github-token:
+    description: "GitHub token for API access"
+    required: true
+
+  ai-provider:
+    description: "AI provider: openai | anthropic | gemini"
+    required: false
+    default: "openai"
+
+  ai-model:
+    description: "Model override"
+    required: false
+    default: ""
+
+  openai-api-key:
+    description: "OpenAI API key"
+    required: false
+    default: ""
+
+  anthropic-api-key:
+    description: "Anthropic API key"
+    required: false
+    default: ""
+
+  gemini-api-key:
+    description: "Google Gemini API key"
+    required: false
+    default: ""
+
+  from-tag:
+    description: "The previous release tag to compare from (e.g. v1.0.0)"
+    required: true
+
+  to-tag:
+    description: "The target tag or ref to compare to (default: HEAD)"
+    required: false
+    default: "HEAD"
+
+  include-prs:
+    description: "Include PR references in release notes"
+    required: false
+    default: "true"
+
+  group-by-type:
+    description: "Group commits by Conventional Commit type"
+    required: false
+    default: "true"
+
+  output-file:
+    description: "Write release notes to this file path (e.g. RELEASE_NOTES.md)"
+    required: false
+    default: ""
+
+  create-github-release:
+    description: "Create a GitHub release with the generated notes"
+    required: false
+    default: "false"
+
+  release-tag:
+    description: "Tag name for the GitHub release (required if create-github-release is true)"
+    required: false
+    default: ""
+
+  tone:
+    description: "Tone of release notes: technical | user-friendly | changelog"
+    required: false
+    default: "user-friendly"
+
+outputs:
+  release-notes:
+    description: "Generated Markdown release notes"
+
+  breaking-changes:
+    description: "JSON array of breaking changes"
+
+  version-bump:
+    description: "Suggested semver bump: major | minor | patch"
+
+  release-url:
+    description: "URL of created GitHub release (if create-github-release is true)"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

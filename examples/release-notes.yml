@@ -1,0 +1,74 @@
+# AI Release Notes — Example Workflow
+#
+# Generates AI-powered release notes when you push a tag or manually trigger.
+
+name: Generate Release Notes
+
+on:
+  # Trigger on tag push
+  push:
+    tags:
+      - "v*"
+
+  # Or trigger manually
+  workflow_dispatch:
+    inputs:
+      from-tag:
+        description: "Previous release tag (e.g. v1.0.0)"
+        required: true
+      to-tag:
+        description: "New tag or ref (default: HEAD)"
+        required: false
+        default: "HEAD"
+
+jobs:
+  release-notes:
+    name: Generate Release Notes
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to compare tags
+
+      - name: Determine previous tag
+        id: prev-tag
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            PREV=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+            echo "tag=$PREV" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${{ github.event.inputs.from-tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate Release Notes
+        id: release-notes
+        uses: github-ai-actions/github-ai-actions/actions/release-notes@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: openai
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          from-tag: ${{ steps.prev-tag.outputs.tag }}
+          to-tag: ${{ github.ref_name || github.event.inputs.to-tag }}
+          tone: user-friendly
+          group-by-type: "true"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: "Release ${{ github.ref_name }}"
+          body: ${{ steps.release-notes.outputs.release-notes }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
+
+      - name: Summary
+        run: |
+          echo "**Version Bump:** ${{ steps.release-notes.outputs.version-bump }}"
+          echo "**Breaking Changes:** ${{ steps.release-notes.outputs.breaking-changes }}"

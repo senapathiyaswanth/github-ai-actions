@@ -1,0 +1,32 @@
+{
+  "name": "@github-ai-actions/core",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI provider abstraction layer for GitHub AI Actions",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests --max-warnings=0",
+    "lint:fix": "eslint src tests --fix",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@github-ai-actions/utils": "workspace:*",
+    "@google/generative-ai": "0.24.1",
+    "openai": "^4.73.1"
+  },
+  "devDependencies": {
+    "@github-ai-actions/tsconfig": "workspace:*",
+    "@vitest/coverage-v8": "^2.1.8",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

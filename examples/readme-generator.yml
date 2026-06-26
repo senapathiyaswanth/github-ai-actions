@@ -1,0 +1,59 @@
+# AI README Generator — Example Workflow
+#
+# Generates or updates your README using AI, then opens a PR for review.
+
+name: Update README with AI
+
+on:
+  # Run manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      sections:
+        description: "Sections to generate (comma-separated)"
+        required: false
+        default: "overview,installation,usage,configuration,contributing,license"
+
+  # Or run on a schedule (e.g., monthly)
+  # schedule:
+  #   - cron: "0 0 1 * *"  # First day of each month
+
+jobs:
+  update-readme:
+    name: Generate README
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate README
+        id: readme
+        uses: github-ai-actions/github-ai-actions/actions/readme-generator@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-provider: anthropic
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          # Which sections to generate
+          sections: ${{ github.event.inputs.sections || 'overview,installation,usage,configuration,contributing,license' }}
+
+          # Create a PR for review (recommended)
+          create-pr: "true"
+          pr-branch: "ai/update-readme"
+          pr-title: "docs: update README with AI-generated content"
+
+          # Include CI/license/version badges
+          include-badges: "true"
+
+          # Optional: Add context the AI might not know from the code
+          additional-context: |
+            This is a TypeScript monorepo.
+            The primary use case is automating code review workflows.
+
+      - name: Output PR URL
+        run: |
+          echo "README PR created: ${{ steps.readme.outputs.pr-url }}"

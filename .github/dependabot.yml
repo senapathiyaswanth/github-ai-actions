@@ -1,0 +1,56 @@
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "github-ai-actions/maintainers"
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    groups:
+      # Group minor/patch updates for actions toolkit
+      actions-toolkit:
+        patterns:
+          - "@actions/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group AI SDK updates
+      ai-sdks:
+        patterns:
+          - "openai"
+          - "@anthropic-ai/*"
+          - "@google/genai"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group Octokit updates
+      octokit:
+        patterns:
+          - "@octokit/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci(deps)"

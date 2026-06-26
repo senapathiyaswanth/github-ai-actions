@@ -1,0 +1,15 @@
+{
+  "extends": "@github-ai-actions/tsconfig/action.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "composite": true
+  },
+  "references": [
+    { "path": "../../packages/utils" },
+    { "path": "../../packages/core" },
+    { "path": "../../packages/github" }
+  ],
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", ]
+}

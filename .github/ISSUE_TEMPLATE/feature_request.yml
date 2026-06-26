@@ -1,0 +1,71 @@
+name: ✨ Feature Request
+description: Suggest a new feature or improvement
+title: "feat: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please describe your idea clearly.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checklist
+      options:
+        - label: I have searched [existing issues](https://github.com/github-ai-actions/github-ai-actions/issues) and discussions
+          required: true
+
+  - type: dropdown
+    id: target
+    attributes:
+      label: Feature target
+      options:
+        - New AI action
+        - ai-pr-review improvement
+        - ai-commit-message improvement
+        - ai-release-notes improvement
+        - ai-readme-generator improvement
+        - New AI provider support
+        - Developer experience
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      description: What problem does this feature solve? What's the use case?
+      placeholder: "As a developer, I want... so that..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the solution you'd like to see
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you considered any alternative approaches?
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example workflow
+      description: If applicable, show what the workflow would look like
+      render: yaml
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to submit a PR to implement this feature

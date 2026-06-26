@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Ask a Question
+    url: https://github.com/github-ai-actions/github-ai-actions/discussions/new?category=q-a
+    about: Please ask questions in GitHub Discussions, not Issues.
+  - name: 🔒 Security Vulnerability
+    url: https://github.com/github-ai-actions/github-ai-actions/security/advisories/new
+    about: For security vulnerabilities, please use our private security advisory.
+  - name: 📖 Documentation
+    url: https://github.com/github-ai-actions/github-ai-actions/wiki
+    about: Check our wiki for documentation and guides.

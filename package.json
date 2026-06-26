@@ -1,0 +1,85 @@
+{
+  "name": "github-ai-actions",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Open-source collection of AI-powered GitHub Actions for automating software engineering tasks",
+  "keywords": [
+    "github-actions",
+    "ai",
+    "openai",
+    "anthropic",
+    "gemini",
+    "pull-request-review",
+    "commit-message",
+    "release-notes",
+    "readme-generator",
+    "automation",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/github-ai-actions/github-ai-actions#readme",
+  "bugs": {
+    "url": "https://github.com/github-ai-actions/github-ai-actions/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github-ai-actions/github-ai-actions.git"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0",
+  "author": "GitHub AI Actions Contributors",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rimraf node_modules",
+    "format": "prettier --write \"**/*.{ts,js,cjs,mjs,json,md,yml,yaml}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,js,cjs,mjs,json,md,yml,yaml}\" --ignore-path .gitignore",
+    "prepare": "husky",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "setup": "node scripts/setup.js",
+    "audit": "pnpm audit --audit-level=high"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@types/node": "26.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unicorn": "^56.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "8.62.0",
+    "vitest": "^2.1.8"
+  },
+  "pnpm": {
+    "overrides": {
+      "cross-spawn": "^7.0.6"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,cjs,mjs}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}

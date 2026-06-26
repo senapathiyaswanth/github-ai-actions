@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "files": [],
+  "references": [
+    { "path": "./packages/tsconfig" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/core" },
+    { "path": "./packages/github" },
+    { "path": "./actions/pr-review" },
+    { "path": "./actions/commit-message" },
+    { "path": "./actions/release-notes" },
+    { "path": "./actions/readme-generator" }
+  ]
+}

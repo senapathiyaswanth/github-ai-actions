@@ -1,0 +1,92 @@
+name: "AI Commit Message Generator"
+description: >
+  Generates Conventional Commit messages from staged changes using AI.
+  Supports all standard Conventional Commit types: feat, fix, docs, refactor,
+  perf, build, ci, test, chore.
+author: "GitHub AI Actions"
+
+branding:
+  icon: "git-commit"
+  color: "green"
+
+inputs:
+  github-token:
+    description: "GitHub token (not required for local use, needed for PR creation)"
+    required: false
+    default: ""
+
+  ai-provider:
+    description: "AI provider: openai | anthropic | gemini"
+    required: false
+    default: "openai"
+
+  ai-model:
+    description: "Model override"
+    required: false
+    default: ""
+
+  openai-api-key:
+    description: "OpenAI API key"
+    required: false
+    default: ""
+
+  anthropic-api-key:
+    description: "Anthropic API key"
+    required: false
+    default: ""
+
+  gemini-api-key:
+    description: "Google Gemini API key"
+    required: false
+    default: ""
+
+  diff:
+    description: "Staged diff content (output of git diff --staged)"
+    required: true
+
+  commit-types:
+    description: >
+      Comma-separated allowed Conventional Commit types.
+      Default: all types.
+    required: false
+    default: "feat,fix,docs,style,refactor,perf,test,build,ci,chore"
+
+  scope:
+    description: "Force a specific scope for the commit message"
+    required: false
+    default: ""
+
+  max-length:
+    description: "Maximum length for the commit subject line"
+    required: false
+    default: "72"
+
+  include-body:
+    description: "Include a detailed body in the commit message"
+    required: false
+    default: "true"
+
+  context:
+    description: "Additional context to help the AI (e.g. ticket number, feature description)"
+    required: false
+    default: ""
+
+outputs:
+  commit-message:
+    description: "Complete Conventional Commit message"
+
+  commit-type:
+    description: "Detected commit type (feat, fix, etc.)"
+
+  commit-scope:
+    description: "Detected or forced commit scope"
+
+  breaking-change:
+    description: "Whether a breaking change was detected (true/false)"
+
+  subject-line:
+    description: "Just the subject line of the commit message"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

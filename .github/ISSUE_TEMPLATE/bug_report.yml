@@ -1,0 +1,103 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior
+title: "bug: "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug! Please fill out this form as completely as possible.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checklist
+      options:
+        - label: I have searched [existing issues](https://github.com/github-ai-actions/github-ai-actions/issues) and didn't find a duplicate
+          required: true
+        - label: I have read the [documentation](https://github.com/github-ai-actions/github-ai-actions#readme)
+          required: true
+
+  - type: dropdown
+    id: action
+    attributes:
+      label: Which action is affected?
+      options:
+        - ai-pr-review
+        - ai-commit-message
+        - ai-release-notes
+        - ai-readme-generator
+        - Multiple actions
+        - Not action-specific
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: AI Provider
+      options:
+        - OpenAI
+        - Anthropic
+        - Google Gemini
+        - N/A
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug description
+      description: A clear and concise description of the bug
+      placeholder: "When I use the action with X configuration, Y happens instead of Z"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce the issue?
+      value: |
+        1. Configure action with...
+        2. Run workflow...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow configuration
+      description: Paste your workflow YAML (remove any secrets!)
+      render: yaml
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste any relevant logs from the GitHub Actions run
+      render: text
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Action version
+      placeholder: "v1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Any other relevant context (OS, Node version, etc.)

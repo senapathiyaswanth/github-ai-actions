@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "changelog": {
+    "repo": "github-ai-actions/github-ai-actions"
+  },
+  "commit": true,
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "privatePackages": {
+    "version": true,
+    "tag": true
+  }
+}

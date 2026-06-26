@@ -1,0 +1,36 @@
+{
+  "name": "@github-ai-actions/ai-release-notes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI release notes generator GitHub Action",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "package": "ncc build src/main.ts -o dist --source-map --license licenses.txt",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests --max-warnings=0",
+    "lint:fix": "eslint src tests --fix",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@github-ai-actions/core": "workspace:*",
+    "@github-ai-actions/github": "workspace:*",
+    "@github-ai-actions/utils": "workspace:*",
+    "@octokit/rest": "^21.0.2"
+  },
+  "devDependencies": {
+    "@github-ai-actions/tsconfig": "workspace:*",
+    "@vercel/ncc": "^0.38.2",
+    "@vitest/coverage-v8": "^2.1.8",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

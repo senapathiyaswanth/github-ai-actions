@@ -1,0 +1,91 @@
+name: "AI PR Review"
+description: >
+  Automatically reviews pull requests using AI. Analyzes changed files for bugs,
+  security issues, code smells, and best practice violations. Posts a detailed
+  Markdown review with a quality score as a PR comment.
+author: "GitHub AI Actions"
+
+branding:
+  icon: "code"
+  color: "blue"
+
+inputs:
+  github-token:
+    description: "GitHub token for API access (use secrets.GITHUB_TOKEN)"
+    required: true
+
+  ai-provider:
+    description: "AI provider to use: openai | anthropic | gemini"
+    required: false
+    default: "openai"
+
+  ai-model:
+    description: "Model override (e.g. gpt-4o-mini, claude-3-5-haiku-20241022)"
+    required: false
+    default: ""
+
+  openai-api-key:
+    description: "OpenAI API key (required when ai-provider is openai)"
+    required: false
+    default: ""
+
+  anthropic-api-key:
+    description: "Anthropic API key (required when ai-provider is anthropic)"
+    required: false
+    default: ""
+
+  gemini-api-key:
+    description: "Google Gemini API key (required when ai-provider is gemini)"
+    required: false
+    default: ""
+
+  review-level:
+    description: "Depth of review: quick | detailed | thorough"
+    required: false
+    default: "detailed"
+
+  max-files:
+    description: "Maximum number of files to analyze per PR"
+    required: false
+    default: "50"
+
+  exclude-patterns:
+    description: >
+      Comma-separated glob patterns to exclude from review
+      (e.g. "*.test.ts,*.md,dist/*")
+    required: false
+    default: ""
+
+  post-as-comment:
+    description: "Post the review as a PR comment"
+    required: false
+    default: "true"
+
+  fail-on-score:
+    description: >
+      Fail the action if the quality score is below this threshold (0-100).
+      Set to 0 to never fail.
+    required: false
+    default: "0"
+
+  dry-run:
+    description: "Run analysis without posting to GitHub"
+    required: false
+    default: "false"
+
+outputs:
+  review-comment:
+    description: "Full Markdown review comment"
+
+  quality-score:
+    description: "Overall quality score (0-100)"
+
+  issues-found:
+    description: "JSON array of detected issues"
+
+  comment-url:
+    description: "URL of the posted review comment (if post-as-comment is true)"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

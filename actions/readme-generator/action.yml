@@ -1,0 +1,97 @@
+name: "AI README Generator"
+description: >
+  Generates or updates a project README using AI by analyzing the repository
+  structure, code, and configuration. Creates a professional README with all
+  standard sections.
+author: "GitHub AI Actions"
+
+branding:
+  icon: "book-open"
+  color: "orange"
+
+inputs:
+  github-token:
+    description: "GitHub token for API access"
+    required: true
+
+  ai-provider:
+    description: "AI provider: openai | anthropic | gemini"
+    required: false
+    default: "openai"
+
+  ai-model:
+    description: "Model override"
+    required: false
+    default: ""
+
+  openai-api-key:
+    description: "OpenAI API key"
+    required: false
+    default: ""
+
+  anthropic-api-key:
+    description: "Anthropic API key"
+    required: false
+    default: ""
+
+  gemini-api-key:
+    description: "Google Gemini API key"
+    required: false
+    default: ""
+
+  output-path:
+    description: "Path to write the README (default: README.md)"
+    required: false
+    default: "README.md"
+
+  sections:
+    description: >
+      Comma-separated list of sections to generate.
+      Options: overview,installation,usage,configuration,api,contributing,license,faq,changelog
+      Default: all sections
+    required: false
+    default: "overview,installation,usage,configuration,contributing,license"
+
+  create-pr:
+    description: "Create a pull request with the generated README"
+    required: false
+    default: "true"
+
+  pr-branch:
+    description: "Branch name for the README PR"
+    required: false
+    default: "ai/update-readme"
+
+  pr-title:
+    description: "PR title for the README update"
+    required: false
+    default: "docs: update README with AI-generated content"
+
+  template:
+    description: "Path to a custom README template file"
+    required: false
+    default: ""
+
+  additional-context:
+    description: "Additional context about the project to include in generation"
+    required: false
+    default: ""
+
+  include-badges:
+    description: "Include status badges (CI, version, license) in the README"
+    required: false
+    default: "true"
+
+outputs:
+  readme-content:
+    description: "Generated README Markdown content"
+
+  pr-url:
+    description: "URL of the created pull request (if create-pr is true)"
+
+  pr-number:
+    description: "Number of the created pull request"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"

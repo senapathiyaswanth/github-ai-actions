@@ -1,0 +1,28 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Force binary for these types
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Force LF for scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows batch files should use CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Diff settings
+*.md diff=markdown
+*.ts diff=typescript
+*.js diff=javascript
+*.json diff=json
