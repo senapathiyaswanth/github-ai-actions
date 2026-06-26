@@ -17,7 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
+    "@anthropic-ai/sdk": "^0.106.0",
     "@github-ai-actions/utils": "workspace:*",
     "@google/generative-ai": "0.24.1",
     "openai": "^4.73.1"
