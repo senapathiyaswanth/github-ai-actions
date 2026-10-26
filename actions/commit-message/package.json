@@ -26,7 +26,7 @@
   "devDependencies": {
     "@github-ai-actions/tsconfig": "workspace:*",
     "@vercel/ncc": "^0.38.2",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^5.0.5",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
