@@ -20,7 +20,7 @@
     "@anthropic-ai/sdk": "^0.32.1",
     "@github-ai-actions/utils": "workspace:*",
     "@google/generative-ai": "0.24.1",
-    "openai": "^4.73.1"
+    "openai": "^7.53.0"
   },
   "devDependencies": {
     "@github-ai-actions/tsconfig": "workspace:*",
